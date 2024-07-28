@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../utils/firebase';
 import PantryItem from '../components/PantryItem';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Pantry = () => {
   const [user] = useAuthState(auth);
@@ -59,11 +60,17 @@ const Pantry = () => {
       <button onClick={addItem} className="bg-blue-500 text-white p-2 m-2">
         Add Item
       </button>
-      <div className="w-full max-w-2xl">
+      <AnimatePresence>
         {items.map((item) => (
-          <PantryItem key={item.id} item={item} onDelete={deleteItem} />
+          <PantryItem
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            quantity={item.quantity}
+            onDelete={deleteItem}
+          />
         ))}
-      </div>
+      </AnimatePresence>
     </div>
   );
 };
