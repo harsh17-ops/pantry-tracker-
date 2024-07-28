@@ -1,12 +1,11 @@
-/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  font-family: Arial, sans-serif;
+  @apply font-sans;
 }
 
-input {
-  margin: 5px;
-}
-
-button {
-  margin: 5px;
+input, button {
+  @apply m-2 p-2;
 }
