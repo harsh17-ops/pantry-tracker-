@@ -6,10 +6,6 @@ import PantryItem from '../components/PantryItem';
 import { motion, AnimatePresence } from 'framer-motion';
 import Home from '../components/Home';
 
-export default function Index() {
-  return <Home />;
-}
-
 const Pantry = () => {
   const [user] = useAuthState(auth);
   const [name, setName] = useState('');
