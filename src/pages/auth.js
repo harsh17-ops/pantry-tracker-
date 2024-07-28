@@ -1,50 +1,48 @@
-import { useState } from 'react';
+// src/pages/auth.js
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../utils/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { motion } from 'framer-motion';
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
   const [user, loading, error] = useAuthState(auth);
 
-  const handleAuth = async () => {
-    if (isLogin) {
-      await signInWithEmailAndPassword(auth, email, password);
-    } else {
-      await createUserWithEmailAndPassword(auth, email, password);
-    }
+  const signIn = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithPopup(provider);
   };
 
   if (loading) return <p>Loading...</p>;
-  if (user) return <p>Welcome, {user.email}</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold">{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        className="border p-2 m-2"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        className="border p-2 m-2"
-      />
-      <button onClick={handleAuth} className="bg-blue-500 text-white p-2 m-2">
-        {isLogin ? 'Login' : 'Sign Up'}
-      </button>
-      <button onClick={() => setIsLogin(!isLogin)} className="text-blue-500">
-        {isLogin ? 'Switch to Sign Up' : 'Switch to Login'}
-      </button>
-      {error && <p className="text-red-500">{error.message}</p>}
-    </div>
+    <motion.div
+      className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {!user ? (
+        <>
+          <h1 className="text-3xl font-bold mb-6">Please log in</h1>
+          <motion.button
+            onClick={signIn}
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Sign in with Google
+          </motion.button>
+        </>
+      ) : (
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <h1 className="text-2xl font-bold mb-6">Welcome, {user.displayName}</h1>
+          <p className="text-xl">You are now logged in.</p>
+        </motion.div>
+      )}
+    </motion.div>
   );
 };
 
