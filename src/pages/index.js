@@ -4,6 +4,11 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { db, auth } from '../utils/firebase';
 import PantryItem from '../components/PantryItem';
 import { motion, AnimatePresence } from 'framer-motion';
+import Home from '../components/Home';
+
+export default function Index() {
+  return <Home />;
+}
 
 const Pantry = () => {
   const [user] = useAuthState(auth);
