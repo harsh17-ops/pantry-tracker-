@@ -1,8 +1,7 @@
-// src/pages/index.js
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { db, auth } from '../../firebase';
+import { db, auth } from '../utils/firebase';
 import PantryItem from '../components/PantryItem';
 
 const Pantry = () => {
@@ -41,24 +40,28 @@ const Pantry = () => {
   if (!user) return <p>Please log in</p>;
 
   return (
-    <div>
-      <h1>Pantry Tracker</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className="text-2xl font-bold">Pantry Tracker</h1>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Item Name"
+        className="border p-2 m-2"
       />
       <input
         type="text"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
         placeholder="Quantity"
+        className="border p-2 m-2"
       />
-      <button onClick={addItem}>Add Item</button>
-      <div>
-        {items.map(item => (
-          <PantryItem key={item.id} item={item} deleteItem={deleteItem} />
+      <button onClick={addItem} className="bg-blue-500 text-white p-2 m-2">
+        Add Item
+      </button>
+      <div className="w-full max-w-2xl">
+        {items.map((item) => (
+          <PantryItem key={item.id} item={item} onDelete={deleteItem} />
         ))}
       </div>
     </div>
