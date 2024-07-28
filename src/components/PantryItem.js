@@ -1,14 +1,24 @@
-const PantryItem = ({ item, onDelete }) => {
+import { motion } from 'framer-motion';
+
+const PantryItem = ({ id, name, quantity, onDelete }) => {
   return (
-    <div className="flex justify-between items-center bg-gray-100 p-4 m-2 rounded">
+    <motion.div
+      className="flex justify-between items-center p-2 m-2 border-b"
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 50 }}
+    >
       <div>
-        <p className="text-xl">{item.name}</p>
-        <p className="text-gray-600">{item.quantity}</p>
+        <h3 className="font-bold">{name}</h3>
+        <p>Quantity: {quantity}</p>
       </div>
-      <button onClick={() => onDelete(item.id)} className="bg-red-500 text-white p-2 rounded">
+      <button
+        onClick={() => onDelete(id)}
+        className="bg-red-500 text-white p-2 rounded"
+      >
         Delete
       </button>
-    </div>
+    </motion.div>
   );
 };
 
