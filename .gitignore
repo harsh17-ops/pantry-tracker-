@@ -126,10 +126,5 @@ dist
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
-
-/node_modules
-/.next
-.env.local
-
 .yarn/install-state.gz
 .pnp.*
