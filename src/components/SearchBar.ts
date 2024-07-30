@@ -21,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <StyledTextField
+    <typeof StyledTextField
       label="Search pantry items"
       variant="outlined"
       value={query}
