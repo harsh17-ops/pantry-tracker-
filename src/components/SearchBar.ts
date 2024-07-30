@@ -9,7 +9,6 @@ const StyledTextField = styled(TextField)<{ variant: 'filled' | 'outlined' | 'st
   width: '100%',
 }));
 
-
 interface SearchBarProps {
   onSearch: (query: string) => void;
 }
@@ -23,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <typeof StyledTextField // Adjusted to use typeof to reference the type
+    <StyledTextField // Removed typeof to correctly reference the StyledTextField component
       label="Search pantry items"
       variant="outlined"
       value={query}
