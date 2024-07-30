@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';  // Updated import
+import { styled } from '@mui/material/styles';  // Correct import
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   margin: theme.spacing(1),
