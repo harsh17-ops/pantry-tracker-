@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';  // Correct import
+import { styled } from '@mui/material/styles'; // Correct import for MUI v5+
 
+// Define a styled TextField component
 const StyledTextField = styled(TextField)(({ theme }) => ({
   margin: theme.spacing(1),
   width: '100%',
@@ -21,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <typeof StyledTextField
+    <StyledTextField
       label="Search pantry items"
       variant="outlined"
       value={query}
