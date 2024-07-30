@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, InputAdornment } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';  // Updated import
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   margin: theme.spacing(1),
@@ -38,4 +38,3 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 };
 
 export default SearchBar;
-
