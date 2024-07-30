@@ -7,7 +7,7 @@ import { usePantryItems } from '../hooks/usePantryItems';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+const StyledTableContainer = styled(TableContainer, { shouldForwardProp: (prop) => prop !== 'component' })(({ theme }) => ({
   maxHeight: 440,
   marginTop: theme.spacing(3),
 }));
