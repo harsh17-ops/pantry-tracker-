@@ -87,4 +87,52 @@ const AddItemForm: React.FC = () => {
           fullWidth
           type="number"
           value={quantity}
-          onChange={(e) =>
+          onChange={(e) => setQuantity(e.target.value)}
+          required
+        />
+        <TextField
+          label="Expiration Date"
+          variant="outlined"
+          fullWidth
+          type="date"
+          value={expirationDate}
+          onChange={(e) => setExpirationDate(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          required
+        />
+        <TextField
+          select
+          label="Category"
+          variant="outlined"
+          fullWidth
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        >
+          {categories.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+        <AnimatedButton
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
+            Add Item
+          </Button>
+        </AnimatedButton>
+      </StyledForm>
+    </FormContainer>
+  );
+};
+
+export default AddItemForm;
