@@ -7,7 +7,7 @@ import { usePantryItems } from '../hooks/usePantryItems';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-const StyledTableContainer = styled(TableContainer, { shouldForwardProp: (prop) => prop !== 'component' })(({ theme }) => ({
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxHeight: 440,
   marginTop: theme.spacing(3),
 }));
@@ -30,7 +30,7 @@ const PantryItemList: React.FC = () => {
   }
 
   return (
-    <StyledTableContainer component={Paper}>
+    <TableContainer component={Paper} style={{ maxHeight: 440, marginTop: '24px' }}>
       <Table stickyHeader aria-label="pantry items table">
         <TableHead>
           <TableRow>
@@ -67,7 +67,7 @@ const PantryItemList: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-    </StyledTableContainer>
+    </TableContainer>
   );
 };
 
