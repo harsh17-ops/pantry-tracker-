@@ -22,20 +22,20 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <StyledTextField // Removed typeof to correctly reference the StyledTextField component
-      label="Search pantry items"
-      variant="outlined"
-      value={query}
-      onChange={handleChange}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <Search />
-          </InputAdornment>
-        ),
-      }}
-    />
-  );
+  <StyledTextField // Corrected reference to the styled TextField component
+    label="Search pantry items"
+    variant="outlined"
+    value={query}
+    onChange={handleChange}
+    InputProps={{
+      startAdornment: (
+        <InputAdornment position="start">
+          <Search />
+        </InputAdornment>
+      ),
+    }}
+  />
+);
 };
 
 export default SearchBar;
