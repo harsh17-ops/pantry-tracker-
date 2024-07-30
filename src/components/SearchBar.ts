@@ -4,10 +4,11 @@ import { Search } from '@mui/icons-material';
 import { styled } from '@mui/material/styles'; // Correct import for MUI v5+
 
 // Define a styled TextField component
-const StyledTextField = styled(TextField)(({ theme }) => ({
+const StyledTextField = styled(TextField)<{ variant: 'filled' | 'outlined' | 'standard' }>(({ theme }) => ({
   margin: theme.spacing(1),
   width: '100%',
 }));
+
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
