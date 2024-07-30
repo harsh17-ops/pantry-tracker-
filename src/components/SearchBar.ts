@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <StyledTextField
+    <typeof StyledTextField // Adjusted to use typeof to reference the type
       label="Search pantry items"
       variant="outlined"
       value={query}
