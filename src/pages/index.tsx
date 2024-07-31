@@ -49,7 +49,7 @@ const Home: React.FC = () => {
       <HeroSection>
         <Container maxWidth="sm">
           <Typography variant="h2" component="h1" gutterBottom>
-            Pantry Tracker Elite
+            Pantry Tracker by Jeet
           </Typography>
           <Typography variant="h5" component="p" paragraph>
             Manage your pantry efficiently, reduce food waste, and discover new recipes!
