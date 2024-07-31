@@ -125,19 +125,13 @@ const AddItemForm: React.FC = () => {
             </MenuItem>
           ))}
         </TextField>
-        <AnimatedButton
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
+        <AnimatedButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button variant="contained" color="primary" type="submit" fullWidth>
             Add Item
           </Button>
         </AnimatedButton>
+        {error && <Typography color="error">{error}</Typography>}
+        {success && <Typography color="primary">Item added successfully!</Typography>}
       </StyledForm>
     </FormContainer>
   );
