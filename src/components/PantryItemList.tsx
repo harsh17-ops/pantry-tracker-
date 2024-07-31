@@ -32,6 +32,7 @@ const PantryItemList: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log('Items updated:', items); // Debug line
     setFilteredItems(items);
   }, [items]);
 
