@@ -17,7 +17,6 @@ const AnimatedTableRow = motion(TableRow);
 
 const PantryItemList: React.FC = () => {
   const { items, loading, error } = usePantryItems();
-  const [filteredItems, setFilteredItems] = useState(items);
 
   if (loading) {
     return <Typography>Loading pantry items...</Typography>;
