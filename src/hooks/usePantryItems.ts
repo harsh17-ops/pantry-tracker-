@@ -29,13 +29,15 @@ export function usePantryItems() {
           id: doc.id,
           ...doc.data(),
         } as PantryItem));
+        console.log('Fetched items:', pantryItems); // Debug line
         setItems(pantryItems);
         setLoading(false);
         setError(null);
       },
-      (error) => {
+      (err) => {
+        console.error('Snapshot error:', err); // Debug line
         setLoading(false);
-        setError("Failed to load pantry items");
+        setError('Failed to load items.');
       }
     );
 
