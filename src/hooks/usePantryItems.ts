@@ -33,7 +33,10 @@ export function usePantryItems() {
         setLoading(false);
         setError(null);
       },
-      
+      (error) => {
+        setLoading(false);
+        setError("Failed to load pantry items");
+      }
     );
 
     return () => unsubscribe();
