@@ -1,4 +1,4 @@
-import { Timestamp } from 'firebase/firestore'; // Add this import
+import { Timestamp } from 'firebase/firestore'; 
 
 export interface PantryItem {
   id: string;
@@ -7,7 +7,7 @@ export interface PantryItem {
   expirationDate: string;
   category: string;
   userId: string;
-  createdAt: Timestamp; // Change this to Timestamp
+  createdAt: Timestamp; 
 }
 
 export interface User {
