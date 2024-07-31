@@ -96,14 +96,7 @@ const Header: React.FC = () => {
                 </Menu>
               </div>
             ) : (
-              <AnimatedButton
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Link href="/login" passHref>
-                  <Button color="inherit">Login</Button>
-                </Link>
-              </AnimatedButton>
+              
             )}
           </>
         )}
