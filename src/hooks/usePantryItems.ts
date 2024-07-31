@@ -33,11 +33,7 @@ export function usePantryItems() {
         setLoading(false);
         setError(null);
       },
-      (err) => {
-        console.error("Firestore error: ", err);
-        setError("Failed to fetch pantry items. Please try again later.");
-        setLoading(false);
-      }
+      
     );
 
     return () => unsubscribe();
