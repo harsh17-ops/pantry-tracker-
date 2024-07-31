@@ -95,11 +95,21 @@ const Header: React.FC = () => {
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
-            ) 
+            ) : (
+              <AnimatedButton
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Link href="/login" passHref>
+                  <Button color="inherit">Login</Button>
+                </Link>
+              </AnimatedButton>
+
+            )}
+          </>
         )}
       </Toolbar>
     </StyledAppBar>
   );
 };
-
 export default Header;
