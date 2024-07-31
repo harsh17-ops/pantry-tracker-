@@ -139,18 +139,6 @@ const AddItemForm: React.FC = () => {
           </Button>
         </AnimatedButton>
       </StyledForm>
-      <Snackbar
-        open={error !== null}
-        autoHideDuration={6000}
-        onClose={() => setError(null)}
-        message={error}
-      />
-      <Snackbar
-        open={success}
-        autoHideDuration={6000}
-        onClose={() => setSuccess(false)}
-        message="Item added successfully!"
-      />
     </FormContainer>
   );
 };
