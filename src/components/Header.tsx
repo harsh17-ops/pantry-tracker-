@@ -55,7 +55,7 @@ const Header: React.FC = () => {
           <KitchenOutlined />
         </IconButton>
         <LogoText variant="h6">
-          Pantry Tracker Elite
+          Pantry Tracker
         </LogoText>
         {!loading && (
           <>
