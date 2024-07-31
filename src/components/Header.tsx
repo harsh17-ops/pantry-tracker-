@@ -95,8 +95,8 @@ const Header: React.FC = () => {
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
-            ) 
-            } :
+            ) : 
+            }
           </>
         )}
       </Toolbar>
