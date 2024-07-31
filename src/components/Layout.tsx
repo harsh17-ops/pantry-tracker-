@@ -21,11 +21,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
       </Box>
-      <Footer>
-        <Typography variant="body2" color="text.secondary">
-          Made with ❤️ by Jeet Dekivadia
-        </Typography>
-      </Footer>
     </Box>
   );
 };
