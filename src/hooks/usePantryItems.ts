@@ -23,12 +23,13 @@ export function usePantryItems() {
       orderBy('createdAt', 'desc')
     );
 
-    const unsubscribe = onSnapshot(q, 
+    const unsubscribe = onSnapshot(
+      q,
       (snapshot) => {
         const pantryItems: PantryItem[] = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data(),
-        } as PantryItem));
+          ...(doc.data() as Omit<PantryItem, 'id'>),
+        }));
         console.log('Fetched items:', pantryItems); // Debug line
         setItems(pantryItems);
         setLoading(false);
@@ -37,7 +38,7 @@ export function usePantryItems() {
       (err) => {
         console.error('Snapshot error:', err); // Debug line
         setLoading(false);
-        setError('Failed to load items.');
+        setError('Failed to load items. Please try again.');
       }
     );
 
