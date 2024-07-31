@@ -19,6 +19,10 @@ const PantryItemList: React.FC = () => {
   const { items, loading, error } = usePantryItems();
   const [filteredItems, setFilteredItems] = useState(items);
 
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
   if (loading) {
     return <Typography>Loading pantry items...</Typography>;
   }
@@ -30,11 +34,6 @@ const PantryItemList: React.FC = () => {
   if (items.length === 0) {
     return <Typography>No items in your pantry. Add some items to get started!</Typography>;
   }
-
-  useEffect(() => {
-    console.log('Items updated:', items); // Debug line
-    setFilteredItems(items);
-  }, [items]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -97,3 +96,4 @@ const PantryItemList: React.FC = () => {
 };
 
 export default PantryItemList;
+
