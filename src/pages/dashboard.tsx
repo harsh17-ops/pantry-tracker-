@@ -17,27 +17,24 @@ const DashboardPage: React.FC = () => {
   return (
     <Layout>
       <Container maxWidth="lg">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Typography variant="h4" component="h1" gutterBottom>
-            Your Pantry Dashboard
-          </Typography>
-        </motion.div>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Welcome to your Pantry Dashboard
+        </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <AddItemForm />
+          <Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+              <AddItemForm />
+            </motion.div>
           </Grid>
-          <Grid item xs={12} md={8}>
-            <PantryItemList />
+          <Grid item xs={12} md={6}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+              <PantryItemList />
+            </motion.div>
           </Grid>
           <Grid item xs={12}>
-            <Dashboard />
-          </Grid>
-          <Grid item xs={12}>
-            <RecipeSuggestions />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+              <RecipeSuggestions />
+            </motion.div>
           </Grid>
         </Grid>
       </Container>
