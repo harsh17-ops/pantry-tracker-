@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { styled } from '@mui/system';
@@ -18,6 +18,10 @@ const AnimatedTableRow = motion(TableRow);
 const PantryItemList: React.FC = () => {
   const { items, loading } = usePantryItems();
   const [filteredItems, setFilteredItems] = useState(items);
+
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
 
   const handleDelete = async (id: string) => {
     try {
@@ -41,7 +45,7 @@ const PantryItemList: React.FC = () => {
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      <StyledTableContainer component={Paper}>
+      <StyledTableContainer>
         <Table stickyHeader aria-label="pantry items table">
           <TableHead>
             <TableRow>
