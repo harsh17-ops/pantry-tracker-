@@ -68,10 +68,7 @@ const AuthForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <Typography variant="h4" gutterBottom>
-        Welcome to your Pantry Tracker! 👋🏻
-      </Typography>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h4" color="green" gutterBottom>
         Please sign in to your account
       </Typography>
       <AuthFormWrapper
