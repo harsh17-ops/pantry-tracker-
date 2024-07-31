@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Box, IconButton, InputAdornment } from '@mui/material';
+import { TextField, Button, Typography, Box, Checkbox, FormControlLabel, IconButton, InputAdornment } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -14,13 +14,15 @@ const FormContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 350,
+  width: 400,
+  maxWidth: '90%',
   padding: theme.spacing(4),
   borderRadius: 12,
-  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+  boxShadow: '0 6px 12px rgba(0,0,0,0.2)',
   background: '#ffffff',
   transition: 'transform 0.3s ease-in-out',
-  position: 'relative',
+  margin: 'auto', // Center horizontally
+  textAlign: 'center',
 }));
 
 const AuthFormWrapper = styled(motion.div)({
@@ -43,6 +45,7 @@ const AuthForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -65,8 +68,11 @@ const AuthForm: React.FC = () => {
 
   return (
     <FormContainer>
-      <Typography variant="h5" gutterBottom>
-        {isSignUp ? 'Sign Up' : 'Login'}
+      <Typography variant="h4" gutterBottom>
+        Welcome to your Pantry Tracker! 👋🏻
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        Please sign in to your account
       </Typography>
       <AuthFormWrapper
         initial={{ opacity: 0, y: -20 }}
@@ -104,6 +110,20 @@ const AuthForm: React.FC = () => {
               ),
             }}
           />
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
+              }
+              label="Remember Me"
+            />
+            <Button color="primary" onClick={() => alert('Forgot Password Clicked')}>
+              Forgot Password?
+            </Button>
+          </Box>
           {error && (
             <Typography color="error" variant="body2" style={{ marginBottom: '16px' }}>
               {error}
@@ -119,12 +139,14 @@ const AuthForm: React.FC = () => {
             </Button>
           </AnimatedButton>
         </form>
+        <Typography variant="body2" style={{ marginTop: '16px' }}>
+          {isSignUp ? 'New on our platform?' : 'Already have an account?'}
+        </Typography>
         <Button
           color="secondary"
           onClick={() => setIsSignUp(!isSignUp)}
-          style={{ marginTop: '16px' }}
         >
-          {isSignUp ? 'Already have an account? Login' : "Don't have an account? Sign Up"}
+          {isSignUp ? 'Create an account' : 'Login'}
         </Button>
       </AuthFormWrapper>
     </FormContainer>
