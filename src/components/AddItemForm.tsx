@@ -43,13 +43,18 @@ const AddItemForm: React.FC = () => {
   const [expirationDate, setExpirationDate] = useState('');
   const [category, setCategory] = useState('');
   const { user } = useAuth();
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user) return;
+    if (!user) {
+      setError("You must be logged in to add items.");
+      return;
+    }
 
     try {
-      await addDoc(collection(db, 'pantryItems'), {
+      const docRef = await addDoc(collection(db, 'pantryItems'), {
         name,
         quantity: Number(quantity),
         expirationDate,
@@ -58,12 +63,15 @@ const AddItemForm: React.FC = () => {
         createdAt: new Date(),
       });
 
+      console.log("Document written with ID: ", docRef.id);
       setName('');
       setQuantity('');
       setExpirationDate('');
       setCategory('');
+      setSuccess(true);
     } catch (error) {
       console.error('Error adding document: ', error);
+      setError("Failed to add item. Please try again.");
     }
   };
 
@@ -131,6 +139,18 @@ const AddItemForm: React.FC = () => {
           </Button>
         </AnimatedButton>
       </StyledForm>
+      <Snackbar
+        open={error !== null}
+        autoHideDuration={6000}
+        onClose={() => setError(null)}
+        message={error}
+      />
+      <Snackbar
+        open={success}
+        autoHideDuration={6000}
+        onClose={() => setSuccess(false)}
+        message="Item added successfully!"
+      />
     </FormContainer>
   );
 };
