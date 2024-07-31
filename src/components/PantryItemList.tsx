@@ -16,8 +16,20 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 const AnimatedTableRow = motion(TableRow);
 
 const PantryItemList: React.FC = () => {
-  const { items, loading } = usePantryItems();
+  const { items, loading, error } = usePantryItems();
   const [filteredItems, setFilteredItems] = useState(items);
+
+  if (loading) {
+    return <Typography>Loading pantry items...</Typography>;
+  }
+
+  if (error) {
+    return <Typography color="error">Error: {error}</Typography>;
+  }
+
+  if (items.length === 0) {
+    return <Typography>No items in your pantry. Add some items to get started!</Typography>;
+  }
 
   useEffect(() => {
     setFilteredItems(items);
@@ -37,10 +49,6 @@ const PantryItemList: React.FC = () => {
     );
     setFilteredItems(filtered);
   };
-
-  if (loading) {
-    return <Typography>Loading pantry items...</Typography>;
-  }
 
   return (
     <>
