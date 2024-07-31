@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Typography } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { styled } from '@mui/system';
@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { usePantryItems } from '../hooks/usePantryItems';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import SearchBar from './SearchBar';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxHeight: 440,
@@ -16,6 +17,7 @@ const AnimatedTableRow = motion(TableRow);
 
 const PantryItemList: React.FC = () => {
   const { items, loading } = usePantryItems();
+  const [filteredItems, setFilteredItems] = useState(items);
 
   const handleDelete = async (id: string) => {
     try {
@@ -25,49 +27,59 @@ const PantryItemList: React.FC = () => {
     }
   };
 
+  const handleSearch = (query: string) => {
+    const filtered = items.filter(item =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredItems(filtered);
+  };
+
   if (loading) {
     return <Typography>Loading pantry items...</Typography>;
   }
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: 440, marginTop: '24px' }}>
-      <Table stickyHeader aria-label="pantry items table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Expiration Date</TableCell>
-            <TableCell align="right">Category</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((item) => (
-            <AnimatedTableRow
-              key={item.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <TableCell component="th" scope="row">
-                {item.name}
-              </TableCell>
-              <TableCell align="right">{item.quantity}</TableCell>
-              <TableCell align="right">{item.expirationDate}</TableCell>
-              <TableCell align="right">{item.category}</TableCell>
-              <TableCell align="right">
-                <IconButton aria-label="edit">
-                  <Edit />
-                </IconButton>
-                <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
-                  <Delete />
-                </IconButton>
-              </TableCell>
-            </AnimatedTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <SearchBar onSearch={handleSearch} />
+      <StyledTableContainer component={Paper}>
+        <Table stickyHeader aria-label="pantry items table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Quantity</TableCell>
+              <TableCell align="right">Expiration Date</TableCell>
+              <TableCell align="right">Category</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredItems.map((item) => (
+              <AnimatedTableRow
+                key={item.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <TableCell component="th" scope="row">
+                  {item.name}
+                </TableCell>
+                <TableCell align="right">{item.quantity}</TableCell>
+                <TableCell align="right">{item.expirationDate}</TableCell>
+                <TableCell align="right">{item.category}</TableCell>
+                <TableCell align="right">
+                  <IconButton aria-label="edit">
+                    <Edit />
+                  </IconButton>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </AnimatedTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </StyledTableContainer>
+    </>
   );
 };
 
