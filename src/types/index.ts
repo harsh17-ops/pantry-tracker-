@@ -5,7 +5,7 @@ export interface PantryItem {
   expirationDate: string;
   category: string;
   userId: string;
-  createdAt: Date;
+  createdAt: any; // Changed to 'any' to accommodate Firebase timestamp
 }
 
 export interface User {
@@ -22,3 +22,4 @@ export interface Recipe {
   usedIngredientCount: number;
   likes: number;
 }
+
