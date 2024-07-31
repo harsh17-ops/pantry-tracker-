@@ -2,7 +2,7 @@ export interface PantryItem {
   id: string;
   name: string;
   quantity: number;
-  expirationDate: Date;
+  expirationDate: string;
   category: string;
   userId: string;
   createdAt: Date;
