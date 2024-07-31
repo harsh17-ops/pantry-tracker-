@@ -1,7 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { getAnalytics, isSupported } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBnb71cLp5FNoEaPy65bVg7UdOob7iidA8",
@@ -13,16 +12,9 @@ const firebaseConfig = {
   measurementId: "G-748DMNZG2N"
 };
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore();
-export const auth = getAuth();
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-let analytics;
-if (typeof window !== 'undefined') {
-  isSupported().then(yes => yes ? analytics = getAnalytics() : null);
-}
-
-export { analytics };
+export { db, auth };
