@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Avatar } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Avatar, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
@@ -49,18 +49,18 @@ const Header: React.FC = () => {
   };
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="fixed">
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <KitchenOutlined />
         </IconButton>
-        <LogoText variant="h6">
+        <LogoText variant="h6" component={motion.div} whileHover={{ scale: 1.1 }}>
           Pantry Tracker
         </LogoText>
         {!loading && (
-          <>
+          <Box>
             {user ? (
-              <div>
+              <>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
                   <MenuItem onClick={() => { handleClose(); router.push('/dashboard'); }}>Dashboard</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
-              </div>
+              </>
             ) : (
               <AnimatedButton
                 whileHover={{ scale: 1.1 }}
@@ -104,12 +104,12 @@ const Header: React.FC = () => {
                   <Button color="inherit">Login</Button>
                 </Link>
               </AnimatedButton>
-
             )}
-          </>
+          </Box>
         )}
       </Toolbar>
     </StyledAppBar>
   );
 };
+
 export default Header;
