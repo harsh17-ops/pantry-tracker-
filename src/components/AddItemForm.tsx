@@ -37,7 +37,11 @@ const categories = [
   'Other',
 ];
 
-const AddItemForm: React.FC = () => {
+interface AddItemFormProps {
+  onSuccess: () => void; // Add this prop
+}
+
+const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
@@ -69,6 +73,7 @@ const AddItemForm: React.FC = () => {
       setExpirationDate('');
       setCategory('');
       setSuccess(true);
+      onSuccess(); // Call the onSuccess callback on successful submission
     } catch (error) {
       console.error('Error adding document: ', error);
       setError("Failed to add item. Please try again.");
