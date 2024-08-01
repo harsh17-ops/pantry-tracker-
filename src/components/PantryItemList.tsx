@@ -102,9 +102,6 @@ const PantryItemList: React.FC = () => {
                     <TableCell align="right">{item.expirationDate}</TableCell>
                     <TableCell align="right">{item.category}</TableCell>
                     <TableCell align="right">
-                      <IconButton aria-label="edit">
-                        <Edit />
-                      </IconButton>
                       <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
                         <Delete />
                       </IconButton>
