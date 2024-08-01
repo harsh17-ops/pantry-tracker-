@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Box, Button, TextField } from '@mui/material';
 import { styled } from '@mui/system';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';  // Import motion from framer-motion
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { usePantryItems } from '../hooks/usePantryItems';
 import AddItemForm from './AddItemForm';
 import RecipeSuggestions from './RecipeSuggestions';
+
+const ChartContainer = styled(Box)({
+  height: 300,
+  marginBottom: 20,
+});
+
+const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FED766', '#2AB7CA'];
 
 // Define Recipe interface
 interface Recipe {
@@ -14,13 +21,6 @@ interface Recipe {
   image: string;
   missedIngredientCount: number;
 }
-
-const ChartContainer = styled(Box)({
-  height: 300,
-  marginBottom: 20,
-});
-
-const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FED766', '#2AB7CA'];
 
 const Dashboard: React.FC = () => {
   const { items } = usePantryItems();
@@ -82,7 +82,7 @@ const Dashboard: React.FC = () => {
       <AnimatePresence>
         {showAddForm && (
           <Grid item xs={12}>
-            <MotionGrid
+            <motion.div // Wrap with motion.div for animation
               container
               spacing={3}
               justifyContent="center"
@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
               <Grid item xs={12} md={6}>
                 <AddItemForm />
               </Grid>
-            </MotionGrid>
+            </motion.div>
           </Grid>
         )}
       </AnimatePresence>
