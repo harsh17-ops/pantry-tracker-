@@ -1,5 +1,7 @@
+// src/pages/dashboard.tsx
+
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, Box, Button } from '@mui/material';
+import { Grid, Typography, Box, Button, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
@@ -16,18 +18,25 @@ const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FED766', '#2AB7CA'];
 
 const MotionGrid = motion(Grid);
 
+interface Recipe {
+  id: number;
+  title: string;
+  image: string;
+  missedIngredientCount: number;
+}
+
 const Dashboard: React.FC = () => {
   const { items } = usePantryItems();
   const [showAddForm, setShowAddForm] = useState(false);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  // Prepare data for Pie Chart
   const categoryData = items.reduce((acc, item) => {
     acc[item.category] = (acc[item.category] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+
   const pieData = Object.entries(categoryData).map(([name, value]) => ({ name, value }));
 
-  // Prepare data for Bar Chart
   const expirationData = items
     .sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())
     .slice(0, 5)
@@ -36,12 +45,10 @@ const Dashboard: React.FC = () => {
       daysLeft: Math.ceil((new Date(item.expirationDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24)),
     }));
 
-  // Get today's meal suggestion based on the earliest expiring item
+  // Determine the earliest expiring item for today's meal suggestion
   const earliestExpiringItem = items
     .sort((a, b) => new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime())[0];
 
-  // Function to fetch recipe suggestions based on pantry items
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   useEffect(() => {
     const fetchRecipes = async () => {
       const ingredients = items.map(item => item.name).join(',');
@@ -59,39 +66,44 @@ const Dashboard: React.FC = () => {
   }, [items]);
 
   return (
-    <Grid container spacing={3} style={{ position: 'relative' }}>
-      {/* Quick Add Item Form (conditionally rendered and positioned above other content) */}
-      <AnimatePresence>
-        {showAddForm && (
-          <Box
-            position="absolute"
-            top={0}
-            left={0}
-            right={0}
-            zIndex={1200}
-            p={3}
-            style={{ backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}
-          >
-            <AddItemForm />
-          </Box>
-        )}
-      </AnimatePresence>
-
-      {/* Quick Add Item Button */}
-      <Grid item xs={12} style={{ textAlign: 'center', marginBottom: 20 }}>
+    <Grid container spacing={3} direction="column">
+      {/* Header and Quick Add Item Button */}
+      <Grid item xs={12}>
         <Button
           variant="contained"
           color="primary"
           onClick={() => setShowAddForm(!showAddForm)}
+          style={{ marginBottom: '20px', display: 'block', margin: '0 auto' }}
         >
           {showAddForm ? 'Hide Add Form' : 'Quick Add Item'}
         </Button>
       </Grid>
 
-      {/* Main Content: Pie Chart, Bar Chart, and Today's Meal Suggestion */}
+      {/* Add Item Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <Grid item xs={12}>
+            <MotionGrid
+              container
+              spacing={3}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Grid item xs={12}>
+                <AddItemForm />
+              </Grid>
+            </MotionGrid>
+          </Grid>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area */}
       <Grid item xs={12}>
-        <Box display="flex" flexDirection="column" alignItems="center">
-          <Box mb={4} width="100%">
+        <Grid container spacing={3}>
+          {/* Pie Chart */}
+          <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom>Pantry Overview</Typography>
             <ChartContainer>
               <ResponsiveContainer width="100%" height="100%">
@@ -113,11 +125,10 @@ const Dashboard: React.FC = () => {
                 </PieChart>
               </ResponsiveContainer>
             </ChartContainer>
-            <Typography>Total Items: {items.length}</Typography>
-            <Typography>Categories: {Object.keys(categoryData).length}</Typography>
-          </Box>
+          </Grid>
 
-          <Box mb={4} width="100%">
+          {/* Bar Chart */}
+          <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom>Expiring Soon</Typography>
             <ChartContainer>
               <ResponsiveContainer width="100%" height="100%">
@@ -129,19 +140,48 @@ const Dashboard: React.FC = () => {
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>
-            {earliestExpiringItem && (
-              <Typography variant="h6" gutterBottom>
-                Today's Meal Suggestion: {earliestExpiringItem.name}
-              </Typography>
-            )}
-          </Box>
+          </Grid>
+
+          {/* Today's Meal Suggestion */}
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" gutterBottom>Today's Meal Suggestion</Typography>
+            <Box padding={2} border={1} borderRadius={2} borderColor="grey.300">
+              {earliestExpiringItem ? (
+                <Typography>
+                  Suggested Meal: {earliestExpiringItem.name} - Expiring in {Math.ceil((new Date(earliestExpiringItem.expirationDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24))} days
+                </Typography>
+              ) : (
+                <Typography>No items expiring soon.</Typography>
+              )}
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      {/* Search Bar */}
+      <Grid item xs={12}>
+        <TextField
+          label="Search Pantry Items"
+          variant="outlined"
+          fullWidth
+          style={{ marginBottom: '20px' }}
+        />
+      </Grid>
+
+      {/* Pantry Item List */}
+      <Grid item xs={12}>
+        <Typography variant="h6" gutterBottom>Pantry Item List</Typography>
+        <Box padding={2} border={1} borderRadius={2} borderColor="grey.300">
+          {/* Map through pantry items */}
+          {items.map(item => (
+            <Typography key={item.id}>{item.name}</Typography>
+          ))}
         </Box>
       </Grid>
 
       {/* Recipe Suggestions */}
       <Grid item xs={12}>
-        <Typography variant="h6" gutterBottom>Recipe Suggestions</Typography>
-        <RecipeSuggestions recipes={recipes} />
+        <RecipeSuggestions />
       </Grid>
     </Grid>
   );
