@@ -22,6 +22,10 @@ const LogoText = styled(Typography)(({ theme }) => ({
   WebkitTextFillColor: 'transparent',
 }));
 
+const AnimatedLogoText = styled(motion.div)({
+  display: 'inline-block',
+});
+
 const AnimatedButton = styled(motion.div)({
   display: 'inline-block',
 });
@@ -54,9 +58,14 @@ const Header: React.FC = () => {
         <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <KitchenOutlined />
         </IconButton>
-        <LogoText variant="h6" component={motion.div} whileHover={{ scale: 1.1 }}>
-          Pantry Tracker
-        </LogoText>
+        <AnimatedLogoText
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <LogoText variant="h6">
+            Pantry Tracker
+          </LogoText>
+        </AnimatedLogoText>
         {!loading && (
           <Box>
             {user ? (
