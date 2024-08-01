@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Box, Button } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { usePantryItems } from '../hooks/usePantryItems';
 import AddItemForm from './AddItemForm';
-import RecipeSuggestions from './RecipeSuggestions';
 
 const ChartContainer = styled(Box)({
-  height: 300,
+  height: '100%',
   marginBottom: 20,
 });
 
@@ -38,21 +37,13 @@ const Dashboard: React.FC = () => {
   return (
     <Grid container spacing={3}>
       <MotionGrid item xs={12} lg={8}>
-        <MotionGrid container justifyContent="center" alignItems="center" spacing={3}>
-          <MotionGrid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={() => setShowAddForm(!showAddForm)}
-            >
-              {showAddForm ? 'Hide Add Form' : 'Quick Add Item'}
-            </Button>
-          </MotionGrid>
-          <MotionGrid item xs={12}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>Pantry Overview</Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <ChartContainer>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={pieData}
@@ -71,13 +62,10 @@ const Dashboard: React.FC = () => {
                 </PieChart>
               </ResponsiveContainer>
             </ChartContainer>
-            <Typography>Total Items: {items.length}</Typography>
-            <Typography>Categories: {Object.keys(categoryData).length}</Typography>
-          </MotionGrid>
-          <MotionGrid item xs={12}>
-            <Typography variant="h6" gutterBottom>Expiring Soon</Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <ChartContainer>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={expirationData}>
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -86,27 +74,17 @@ const Dashboard: React.FC = () => {
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>
-          </MotionGrid>
-          <MotionGrid item xs={12}>
-            <Typography variant="h6" gutterBottom>Today's Meal Suggestion</Typography>
-            <RecipeSuggestions />
-          </MotionGrid>
-        </MotionGrid>
+          </Grid>
+        </Grid>
       </MotionGrid>
-      <AnimatePresence>
-        {showAddForm && (
-          <MotionGrid item xs={12} lg={4}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <AddItemForm />
-          </MotionGrid>
-        )}
-      </AnimatePresence>
+      <MotionGrid item xs={12} lg={4}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
+          <AddItemForm />
+        </motion.div>
+      </MotionGrid>
     </Grid>
   );
 };
 
 export default Dashboard;
+
