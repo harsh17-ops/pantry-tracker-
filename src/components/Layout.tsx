@@ -8,7 +8,8 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const MainContent = styled(Box)(({ theme }) => ({
+// Define a styled Box component with MUI styling
+const StyledMainContent = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   marginTop: 64,
@@ -18,16 +19,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
-      <MainContent component={motion.main}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
       >
-        <Container maxWidth="lg">
-          {children}
-        </Container>
-      </MainContent>
+        <StyledMainContent>
+          <Container maxWidth="lg">
+            {children}
+          </Container>
+        </StyledMainContent>
+      </motion.div>
     </Box>
   );
 };
