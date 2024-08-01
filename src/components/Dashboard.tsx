@@ -37,70 +37,65 @@ const Dashboard: React.FC = () => {
 
   return (
     <Grid container spacing={3}>
-      <MotionGrid item xs={12} md={6} lg={4}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Typography variant="h6" gutterBottom>Pantry Overview</Typography>
-        <ChartContainer>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={pieData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-                label={({ name, percent }) => ${name} ${(percent * 100).toFixed(0)}%}
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={cell-${index}} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-        <Typography>Total Items: {items.length}</Typography>
-        <Typography>Categories: {Object.keys(categoryData).length}</Typography>
-      </MotionGrid>
-      <MotionGrid item xs={12} md={6} lg={4}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <Typography variant="h6" gutterBottom>Expiring Soon</Typography>
-        <ChartContainer>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={expirationData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="daysLeft" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setShowAddForm(!showAddForm)}
-        >
-          {showAddForm ? 'Hide Add Form' : 'Quick Add Item'}
-        </Button>
-      </MotionGrid>
-      <MotionGrid item xs={12} lg={4}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <Typography variant="h6" gutterBottom>Today's Meal Suggestion</Typography>
-        <RecipeSuggestions />
+      <MotionGrid item xs={12} lg={8}>
+        <MotionGrid container justifyContent="center" alignItems="center" spacing={3}>
+          <MotionGrid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => setShowAddForm(!showAddForm)}
+            >
+              {showAddForm ? 'Hide Add Form' : 'Quick Add Item'}
+            </Button>
+          </MotionGrid>
+          <MotionGrid item xs={12}>
+            <Typography variant="h6" gutterBottom>Pantry Overview</Typography>
+            <ChartContainer>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+            <Typography>Total Items: {items.length}</Typography>
+            <Typography>Categories: {Object.keys(categoryData).length}</Typography>
+          </MotionGrid>
+          <MotionGrid item xs={12}>
+            <Typography variant="h6" gutterBottom>Expiring Soon</Typography>
+            <ChartContainer>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={expirationData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="daysLeft" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </MotionGrid>
+          <MotionGrid item xs={12}>
+            <Typography variant="h6" gutterBottom>Today's Meal Suggestion</Typography>
+            <RecipeSuggestions />
+          </MotionGrid>
+        </MotionGrid>
       </MotionGrid>
       <AnimatePresence>
         {showAddForm && (
-          <MotionGrid item xs={12}
+          <MotionGrid item xs={12} lg={4}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
