@@ -9,22 +9,33 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { useRouter } from 'next/router';
 
+// Styled components
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  background: theme.palette.background.default,
+  boxShadow: '0 3px 5px rgba(0,0,0,0.2)',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 
 const LogoText = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
-  fontFamily: 'Pacifico, cursive',
-  background: `-webkit-linear-gradient(45deg, ${theme.palette.primary.light} 30%, ${theme.palette.secondary.light} 90%)`,
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
+  fontFamily: 'Arial, sans-serif',
+  fontWeight: 'bold',
+  color: 'black',
+  textAlign: 'left',
+  position: 'relative',
+  '&::before': {
+    content: '"Pantry Tracker by Jeet Dekivadia"',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    zIndex: -1,
+    filter: 'blur(2px)',
+  },
 }));
-
-const AnimatedLogoText = styled(motion.div)({
-  display: 'inline-block',
-});
 
 const AnimatedButton = styled(motion.div)({
   display: 'inline-block',
@@ -58,14 +69,11 @@ const Header: React.FC = () => {
         <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <KitchenOutlined />
         </IconButton>
-        <AnimatedLogoText
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
+        <Box flexGrow={1} display="flex" alignItems="center">
           <LogoText variant="h6">
-            Pantry Tracker
+            Pantry Tracker by Jeet Dekivadia
           </LogoText>
-        </AnimatedLogoText>
+        </Box>
         {!loading && (
           <Box>
             {user ? (
