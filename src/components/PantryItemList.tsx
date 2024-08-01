@@ -8,7 +8,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import SearchBar from './SearchBar';
 
-const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
   maxHeight: 440,
   marginTop: theme.spacing(3),
 }));
@@ -68,47 +68,54 @@ const PantryItemList: React.FC = () => {
         }}
         sx={{ mb: 2 }}
       />
-      <StyledTableContainer component={Paper}>
-        <Table stickyHeader aria-label="pantry items table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Expiration Date</TableCell>
-              <TableCell align="right">Category</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <AnimatePresence>
-              {filteredItems.map((item) => (
-                <AnimatedTableRow
-                  key={item.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <TableCell component="th" scope="row">
-                    {item.name}
-                  </TableCell>
-                  <TableCell align="right">{item.quantity}</TableCell>
-                  <TableCell align="right">{item.expirationDate}</TableCell>
-                  <TableCell align="right">{item.category}</TableCell>
-                  <TableCell align="right">
-                    <IconButton aria-label="edit">
-                      <Edit />
-                    </IconButton>
-                    <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
-                      <Delete />
-                    </IconButton>
-                  </TableCell>
-                </AnimatedTableRow>
-              ))}
-            </AnimatePresence>
-          </TableBody>
-        </Table>
-      </StyledTableContainer>
+      <StyledPaper>
+        <TableContainer component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Table stickyHeader aria-label="pantry items table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+                <TableCell align="right">Expiration Date</TableCell>
+                <TableCell align="right">Category</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <AnimatePresence>
+                {filteredItems.map((item) => (
+                  <AnimatedTableRow
+                    key={item.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {item.name}
+                    </TableCell>
+                    <TableCell align="right">{item.quantity}</TableCell>
+                    <TableCell align="right">{item.expirationDate}</TableCell>
+                    <TableCell align="right">{item.category}</TableCell>
+                    <TableCell align="right">
+                      <IconButton aria-label="edit">
+                        <Edit />
+                      </IconButton>
+                      <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
+                        <Delete />
+                      </IconButton>
+                    </TableCell>
+                  </AnimatedTableRow>
+                ))}
+              </AnimatePresence>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </StyledPaper>
     </>
   );
 };
