@@ -47,6 +47,12 @@ const RecipeSuggestions: React.FC = () => {
     }
   }, [items]);
 
+  const handleViewRecipe = (recipeTitle: string) => {
+    const searchQuery = encodeURIComponent(`${recipeTitle} recipe`);
+    const url = `https://www.google.com/search?q=${searchQuery}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div>
       <Typography variant="h5" gutterBottom>
@@ -71,7 +77,11 @@ const RecipeSuggestions: React.FC = () => {
                   Missing ingredients: {recipe.missedIngredientCount}
                 </Typography>
               </StyledCardContent>
-              <Button size="small" color="primary">
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => handleViewRecipe(recipe.title)}
+              >
                 View Recipe
               </Button>
             </AnimatedCard>
@@ -83,3 +93,4 @@ const RecipeSuggestions: React.FC = () => {
 };
 
 export default RecipeSuggestions;
+
