@@ -14,6 +14,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@mui/styles": "latest",
+    "@mui/system": "latest",
     "@next/font": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
