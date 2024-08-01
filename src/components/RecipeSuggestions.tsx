@@ -36,7 +36,7 @@ const RecipeSuggestions: React.FC = () => {
       const ingredients = items.map(item => item.name).join(',');
       const apiKey = process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY;
       const response = await fetch(
-        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=4&apiKey=${d6788cc451554089940d63de6b3069af}`
+        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=4&apiKey=${apiKey}`
       );
       const data = await response.json();
       setRecipes(data);
