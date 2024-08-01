@@ -130,7 +130,7 @@ const Home: React.FC = () => {
 
       <Footer>
         <Typography variant="body2" color="text.secondary">
-          Made with ❤️ by Jeet Dekivadia. Join us in our mission to reduce food waste and inspire home cooking!
+          Made with ❤️ by Jeet Dekivadia. Join me in my mission to reduce food waste and inspire home cooking!
         </Typography>
       </Footer>
     </Layout>
