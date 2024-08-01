@@ -7,6 +7,14 @@ import { usePantryItems } from '../hooks/usePantryItems';
 import AddItemForm from './AddItemForm';
 import RecipeSuggestions from './RecipeSuggestions';
 
+// Define Recipe interface
+interface Recipe {
+  id: number;
+  title: string;
+  image: string;
+  missedIngredientCount: number;
+}
+
 const ChartContainer = styled(Box)({
   height: 300,
   marginBottom: 20,
