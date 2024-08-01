@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Box, Button, TextField } from '@mui/material';
 import { styled } from '@mui/system';
-import { motion, AnimatePresence } from 'framer-motion';  // Import motion from framer-motion
+import { motion, AnimatePresence } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { usePantryItems } from '../hooks/usePantryItems';
 import AddItemForm from './AddItemForm';
@@ -14,7 +14,6 @@ const ChartContainer = styled(Box)({
 
 const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FED766', '#2AB7CA'];
 
-// Define Recipe interface
 interface Recipe {
   id: number;
   title: string;
@@ -27,7 +26,6 @@ const Dashboard: React.FC = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  // Fetch recipes whenever items change
   useEffect(() => {
     const fetchRecipes = async () => {
       const ingredients = items.map(item => item.name).join(',');
@@ -59,7 +57,6 @@ const Dashboard: React.FC = () => {
       daysLeft: Math.ceil((new Date(item.expirationDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24)),
     }));
 
-  // Determine the earliest expiring item for today's meal suggestion
   const earliestExpiringItem = items.length > 0
     ? items.reduce((earliest, current) => new Date(earliest.expirationDate).getTime() < new Date(current.expirationDate).getTime() ? earliest : current)
     : undefined;
@@ -82,17 +79,16 @@ const Dashboard: React.FC = () => {
       <AnimatePresence>
         {showAddForm && (
           <Grid item xs={12}>
-            <motion.div // Wrap with motion.div for animation
-              container
-              spacing={3}
-              justifyContent="center"
+            <motion.div
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.3 }}
             >
-              <Grid item xs={12} md={6}>
-                <AddItemForm />
+              <Grid container spacing={3} justifyContent="center">
+                <Grid item xs={12} md={6}>
+                  <AddItemForm />
+                </Grid>
               </Grid>
             </motion.div>
           </Grid>
