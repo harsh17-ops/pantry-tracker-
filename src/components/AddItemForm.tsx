@@ -38,7 +38,7 @@ const categories = [
 ];
 
 interface AddItemFormProps {
-  onSuccess: () => void; // Add this prop
+  onSuccess: () => void; // This prop is required
 }
 
 const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
