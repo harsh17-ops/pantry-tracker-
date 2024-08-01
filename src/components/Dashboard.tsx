@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         <Typography variant="h6" gutterBottom>Today's Meal Suggestion</Typography>
-        <RecipeSuggestions limit={1} />
+        <RecipeSuggestions/>
       </MotionGrid>
       <AnimatePresence>
         {showAddForm && (
