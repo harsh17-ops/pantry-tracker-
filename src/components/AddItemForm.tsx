@@ -37,11 +37,7 @@ const categories = [
   'Other',
 ];
 
-interface AddItemFormProps {
-  onSuccess: () => void; // This prop is required
-}
-
-const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
+const AddItemForm: React.FC = () => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
@@ -73,7 +69,6 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
       setExpirationDate('');
       setCategory('');
       setSuccess(true);
-      onSuccess(); // Call the onSuccess callback on successful submission
     } catch (error) {
       console.error('Error adding document: ', error);
       setError("Failed to add item. Please try again.");
@@ -124,19 +119,22 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ onSuccess }) => {
           onChange={(e) => setCategory(e.target.value)}
           required
         >
-          {categories.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {categories.map((cat) => (
+            <MenuItem key={cat} value={cat}>
+              {cat}
             </MenuItem>
           ))}
         </TextField>
-        <AnimatedButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button variant="contained" color="primary" type="submit" fullWidth>
+        {error && <Typography color="error">{error}</Typography>}
+        {success && <Typography color="primary">Item added successfully!</Typography>}
+        <AnimatedButton
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button type="submit" variant="contained" color="primary" fullWidth>
             Add Item
           </Button>
         </AnimatedButton>
-        {error && <Typography color="error">{error}</Typography>}
-        {success && <Typography color="primary">Item added successfully!</Typography>}
       </StyledForm>
     </FormContainer>
   );
