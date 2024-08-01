@@ -21,7 +21,7 @@ const LogoText = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
   fontFamily: 'Arial, sans-serif',
   fontWeight: 'bold',
-  color: 'black',
+  color: 'white',
   textAlign: 'left',
   position: 'relative',
   '&::before': {
