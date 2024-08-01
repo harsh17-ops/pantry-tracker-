@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <AddItemForm onSuccess={() => setShowAddForm(false)} />
+            <AddItemForm />
           </MotionGrid>
         )}
       </AnimatePresence>
@@ -115,3 +115,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
