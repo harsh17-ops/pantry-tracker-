@@ -8,23 +8,30 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import { KitchenOutlined, LocalDiningOutlined, NotificationsActiveOutlined } from '@mui/icons-material';
 
-// Styled Components
 const HeroSection = styled(Box)(({ theme }) => ({
   background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
   color: 'white',
-  padding: theme.spacing(8, 0, 6),
+  padding: theme.spacing(12, 0, 8),
   textAlign: 'center',
+  borderRadius: '0 0 50% 50% / 10%',
 }));
 
 const FeatureIcon = styled(Box)(({ theme }) => ({
-  fontSize: '3rem',
+  fontSize: '4rem',
   marginBottom: theme.spacing(2),
+  color: theme.palette.primary.main,
 }));
 
 const FeaturePaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
+  padding: theme.spacing(4),
   textAlign: 'center',
   height: '100%',
+  borderRadius: 16,
+  transition: 'all 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-10px)',
+    boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
+  },
 }));
 
 const AnimatedButton = styled(motion.div)({
@@ -34,7 +41,7 @@ const AnimatedButton = styled(motion.div)({
 const Footer = styled(Box)(({ theme }) => ({
   marginTop: 'auto',
   backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(2),
+  padding: theme.spacing(4),
   textAlign: 'center',
 }));
 
@@ -48,118 +55,75 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <HeroSection>
-        <Container maxWidth="sm">
-          <Typography variant="h2" component="h1" gutterBottom>
-            Welcome to Pantry Tracker
-          </Typography>
-          <Typography variant="h5" component="p" paragraph>
-            Your ultimate solution for managing pantry items efficiently! With Pantry Tracker, you can minimize food waste, save money, and unleash your culinary creativity by discovering new recipes tailored to the ingredients you have at home.
-          </Typography>
-          <Typography variant="body1" component="p" paragraph>
-            Join our community of food lovers and home cooks who are taking control of their kitchens. Start tracking your inventory today and never let good food go to waste again!
-          </Typography>
-          {user ? (
-            <Link href="/dashboard" passHref>
-              <AnimatedButton whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Button variant="contained" color="secondary" size="large">
-                  Go to Dashboard
-                </Button>
-              </AnimatedButton>
-            </Link>
-          ) : (
-            <AuthForm />
-          )}
+        <Container maxWidth="md">
+          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <Typography variant="h2" component="h1" gutterBottom>
+              Welcome to Pantry Tracker
+            </Typography>
+            <Typography variant="h5" component="p" paragraph>
+              Your ultimate solution for managing pantry items efficiently! Minimize food waste, save money, and discover new recipes.
+            </Typography>
+            {user ? (
+              <Link href="/dashboard" passHref>
+                <AnimatedButton whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                  <Button variant="contained" color="secondary" size="large">
+                    Go to Dashboard
+                  </Button>
+                </AnimatedButton>
+              </Link>
+            ) : (
+              <AuthForm />
+            )}
+          </motion.div>
         </Container>
       </HeroSection>
 
-      <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom align="center">
-          Key Features
-        </Typography>
-        <Typography variant="body1" component="p" paragraph align="center">
-          Our platform is designed with user-friendliness in mind, providing a comprehensive suite of features to enhance your cooking and food management experience. Explore what Pantry Tracker has to offer:
-        </Typography>
-        
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={4}>
-            <FeaturePaper elevation={3}>
-              <FeatureIcon>
-                <KitchenOutlined fontSize="inherit" color="primary" />
-              </FeatureIcon>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Inventory Management
-              </Typography>
-              <Typography>
-                Keep track of all your pantry items in one organized place. Add, edit, or remove items with ease, ensuring you always know what you have on hand.
-              </Typography>
-            </FeaturePaper>
+      <Container maxWidth="lg" sx={{ mt: 12, mb: 12 }}>
+        <Grid container spacing={6}>
+          <Grid item xs={12} md={4}>
+            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
+              <FeaturePaper elevation={3}>
+                <FeatureIcon>
+                  <KitchenOutlined fontSize="inherit" />
+                </FeatureIcon>
+                <Typography variant="h5" component="h3" gutterBottom>
+                  Inventory Management
+                </Typography>
+                <Typography>
+                  Keep track of all your pantry items in one organized place. Add, edit, or remove items with ease.
+                </Typography>
+              </FeaturePaper>
+            </motion.div>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <FeaturePaper elevation={3}>
-              <FeatureIcon>
-                <NotificationsActiveOutlined fontSize="inherit" color="primary" />
-              </FeatureIcon>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Expiration Alerts
-              </Typography>
-              <Typography>
-                Set up notifications to alert you before your food items expire. Never let your groceries go to waste again with timely reminders!
-              </Typography>
-            </FeaturePaper>
+          <Grid item xs={12} md={4}>
+            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
+              <FeaturePaper elevation={3}>
+                <FeatureIcon>
+                  <NotificationsActiveOutlined fontSize="inherit" />
+                </FeatureIcon>
+                <Typography variant="h5" component="h3" gutterBottom>
+                  Expiration Alerts
+                </Typography>
+                <Typography>
+                  Set up notifications to alert you before your food items expire. Never let your groceries go to waste again!
+                </Typography>
+              </FeaturePaper>
+            </motion.div>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <FeaturePaper elevation={3}>
-              <FeatureIcon>
-                <LocalDiningOutlined fontSize="inherit" color="primary" />
-              </FeatureIcon>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Recipe Suggestions
-              </Typography>
-              <Typography>
-                Discover delicious recipes based on the ingredients you already have in your pantry. Get inspired and make the most of your groceries!
-              </Typography>
-            </FeaturePaper>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom align="center">
-          Why Choose Pantry Tracker?
-        </Typography>
-        <Typography variant="body1" component="p" paragraph align="center">
-          At Pantry Tracker, we believe in sustainability and creativity in the kitchen. Here are a few reasons why our users love us:
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={3}>
-            <FeaturePaper elevation={3}>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Save Money
-              </Typography>
-              <Typography>
-                Reduce unnecessary purchases by knowing exactly what you have and what you need. Save on grocery bills while minimizing food waste.
-              </Typography>
-            </FeaturePaper>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FeaturePaper elevation={3}>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Culinary Creativity
-              </Typography>
-              <Typography>
-                Experiment with new recipes and enhance your cooking skills by using ingredients you may not have thought to combine.
-              </Typography>
-            </FeaturePaper>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FeaturePaper elevation={3}>
-              <Typography variant="h5" component="h3" gutterBottom>
-                Eco-Friendly
-              </Typography>
-              <Typography>
-                Join us in the fight against food waste! Pantry Tracker helps you use up your ingredients before they expire, promoting sustainable eating habits.
-              </Typography>
-            </FeaturePaper>
+          <Grid item xs={12} md={4}>
+            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
+              <FeaturePaper elevation={3}>
+                <FeatureIcon>
+                  <LocalDiningOutlined fontSize="inherit" />
+                </FeatureIcon>
+                <Typography variant="h5" component="h3" gutterBottom>
+                  Recipe Suggestions
+                </Typography>
+                <Typography>
+                  Discover delicious recipes based on the ingredients you already have in your pantry. Get inspired and cook!
+                </Typography>
+              </FeaturePaper>
+            </motion.div>
           </Grid>
         </Grid>
       </Container>
