@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../styles/theme';
 import '../styles/globals.css';
 import { AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   React.useEffect(() => {
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <Component {...pageProps} key={router.route} />
       </AnimatePresence>
     </ThemeProvider>
+    <Analytics />
   );
 }
 
