@@ -1,21 +1,72 @@
+/* src/styles/globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: linear-gradient(to bottom right, #120458, #1B0C5F);
+  min-height: 100vh;
+  color: #ffffff;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@keyframes gradient {
+/* Synthwave grid background */
+.synthwave-grid {
+  background-image:
+    linear-gradient(to right, rgba(255,0,255,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,0,255,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-attachment: fixed;
+}
+
+/* Glowing text effect */
+.glow-text {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+}
+
+/* Neon border effect */
+.neon-border {
+  border: 2px solid #ff00ff;
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, inset 0 0 10px #ff00ff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1B0C5F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff00ff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ffff;
+}
+
+/* Animated gradient background for special elements */
+@keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
   }
@@ -27,8 +78,8 @@ a {
   }
 }
 
-.gradient-bg {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+.animated-gradient {
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 5s ease infinite;
 }
