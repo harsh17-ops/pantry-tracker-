@@ -3,6 +3,7 @@ name: Auto Commit
 on:
   schedule:
     - cron: '* * * * *' # Runs every 1 minute
+  workflow_dispatch:
 
 jobs:
   autocommit:
@@ -20,3 +21,4 @@ jobs:
           git add dummy.txt
           git commit -m "update"
           git push
+
