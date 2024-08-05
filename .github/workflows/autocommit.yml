@@ -32,8 +32,9 @@ jobs:
           # Create/update dummy.txt
           echo "Update $(date +'%Y-%m-%d %H:%M:%S')" > dummy.txt
           git add dummy.txt
-          git commit -m "Update: $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Update"
           git push
 
           # Update last commit timestamp
           date +%s > last_commit.txt
+
