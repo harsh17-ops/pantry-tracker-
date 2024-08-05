@@ -33,8 +33,10 @@ jobs:
           echo "Update $(date +'%Y-%m-%d %H:%M:%S')" > dummy.txt
           git add dummy.txt
           git commit -m "Update"
-          git push
+          git push origin main
 
           # Update last commit timestamp
           date +%s > last_commit.txt
-
+          git add last_commit.txt
+          git commit -m "Update commit timestamp"
+          git push origin main
