@@ -1,0 +1,20 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  autocommit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Update repository
+      run: |
+        git config --global user.name 'jeet-dekivadia'
+        git config --global user.email 'jeet.university@gmail.com'
+        git commit --allow-empty -m "Update"
+        git push
