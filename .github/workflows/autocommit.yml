@@ -13,17 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Make a dummy commit if 45 minutes have passed
+      - name: Make a dummy commit if 20 minutes have passed
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Check if 45 minutes have passed since the last commit
+
+          # Check if 20 minutes have passed since the last commit
           if [ -f last_commit.txt ]; then
             last_commit_time=$(cat last_commit.txt)
             current_time=$(date +%s)
             elapsed_time=$((current_time - last_commit_time))
-            if [ $elapsed_time -lt 2700 ]; then
+            if [ $elapsed_time -lt 1200 ]; then
               echo "Not enough time has passed since the last commit."
               exit 0
             fi
@@ -32,7 +32,7 @@ jobs:
           # Create/update dummy.txt
           echo "Update $(date +'%Y-%m-%d %H:%M:%S')" > dummy.txt
           git add dummy.txt
-          git commit -m "update"
+          git commit -m "Auto commit: $(date +'%Y-%m-%d %H:%M:%S')"
           git push
 
           # Update last commit timestamp
