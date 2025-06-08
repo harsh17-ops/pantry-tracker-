@@ -1,4 +1,4 @@
-# Pantry Tracker by Jeet Dekivadia
+# Pantry Tracker 
 
 Pantry Tracker Elite is a sophisticated web application designed to help users manage their pantry inventory efficiently. With features like real-time inventory tracking, expiration date alerts, and recipe suggestions based on available ingredients, this app streamlines kitchen management and reduces food waste.
 
